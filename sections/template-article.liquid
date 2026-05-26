@@ -1,5 +1,5 @@
 <h1>{{article.title}}</h1>
 <small>{{article.author}}</small>
-<time datetime="{{article.published_at |  date: '%y-%m-%d'}}">{{article.published_at |  date: '%y-%m-%d'}}</time>
+<time datetime="{{article.published_at |  date: '%Y-%m-%d'}}">{{article.published_at |  date: '%Y-%m-%d'}}</time>
 <img src="{{ article.image | image_url: width: 800 }}" alt="{{ article.image.alt }}">
 <div class="">{{article.content}}</div>
