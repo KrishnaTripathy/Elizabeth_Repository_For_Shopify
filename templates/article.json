@@ -12,11 +12,18 @@
     "template": {
       "type": "template-article",
       "blocks": {
-        "title":{
-          "type":"article_title"
+        "article_title_CMPtjp": {
+          "type": "article_title",
+          "settings": {}
         }
       },
-      "block_order": ["title"]
+      "block_order": [
+        "article_title_CMPtjp"
+      ],
+      "settings": {
+        "enable_author": true,
+        "enable_published_date": true
+      }
     }
   },
   "order": [
