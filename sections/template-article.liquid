@@ -3,27 +3,37 @@
     {% case block.type %}
         {% when 'article_title' %}
             <div class="flex items-center justify-center">
-                <div class="max-w-7xl">
+                <div class="max-w-7xl text-center">
                     <a href="{{blog.url}}" class="text-base uppercase text-gray-500">{{blog.title}}</a>
                     <h1 class="text-4xl md:text-6xl font-medium">{{article.title}}</h1>
                 </div>
             </div>
-
-            <h1>{{ article.title }}</h1>
         {% when 'article_author' %}
-            {% if section.settings.enable_author %}
-    
-    <small>{{ article.author }}</small>
-{% endif %}
+            <div class="flex items-center justify-center">
+                <div class="max-w-7xl text-center">
+
+                    {% if section.settings.enable_author %}
+            
+            <small>{{ article.author }}</small>
+        {% endif %}
+                </div>
+            </div>
         {% when 'article_published_date' %}
-            {% if section.settings.enable_published_date %}
+            <div class="flex items-center justify-center">
+                <div class="max-w-7xl text-center">
+          {% if section.settings.enable_published_date %}
     
     <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
-      {{ article.published_at | date: '%B %d, %Y' }}
+      {{ article.published_at | date: format: 'on_date' }}
     </time>
-{% endif %}
+        {% endif %}
+                </div>
+            </div>
+            
         {% when 'featured_image' %}
-            {% if article.image %}
+            <div class="flex items-center justify-center">
+                <div class="max-w-7xl text-center">
+                     {% if article.image %}
   <img
     src="{{ article.image | image_url: width: 800 }}"
     alt="{{ article.image.alt | escape }}"
@@ -31,11 +41,19 @@
     height="auto"
   >
 {% endif %}
+                </div>
+            </div>
+           
         {% when 'article_content' %}
-       <div>
+            <div class="flex items-center justify-center">
+                <div class="max-w-7xl text-center">
+                  <div>
   {{ article.content }}
 </div>
             
+                </div>
+            </div>
+      
         {% else %}
             
     {% endcase %}
