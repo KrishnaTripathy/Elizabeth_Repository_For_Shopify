@@ -11,7 +11,10 @@
   "sections": {
     "template": {
       "type": "template-article",
-      "settings": {}
+      "settings": {
+        "enable_author": false,
+        "enable_published_date": false
+      }
     }
   },
   "order": [
