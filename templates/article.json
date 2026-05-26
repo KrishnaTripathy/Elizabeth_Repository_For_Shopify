@@ -16,12 +16,12 @@
           "type": "article_title",
           "settings": {}
         },
-        "thumbnail": {
-          "type": "featured_image",
-          "settings": {}
-        },
         "author": {
           "type": "article_author",
+          "settings": {}
+        },
+        "thumbnail": {
+          "type": "featured_image",
           "settings": {}
         },
         "content": {
@@ -35,8 +35,8 @@
       },
       "block_order": [
         "title",
-        "thumbnail",
         "author",
+        "thumbnail",
         "content",
         "published_date"
       ],
