@@ -1,20 +1,20 @@
-<article class="py-8">
+<article class="py-8" itemscope itemtype="http://schema.org/BlogPosting">
 {% for block in section.blocks %}
     {% case block.type %}
         {% when 'article_title' %}
             <div class="flex items-center justify-center">
                 <div class="max-w-7xl text-center">
                     <a href="{{blog.url}}" class="text-base uppercase text-gray-500">{{blog.title}}</a>
-                    <h1 class="text-4xl md:text-6xl font-medium">{{article.title}}</h1>
+                    <h1 class="text-4xl md:text-6xl font-medium" itemprop="headline">{{article.title}}</h1>
                 </div>
             </div>
         {% when 'article_author' %}
-            <div class="flex items-center justify-center">
+            <div class="flex items-center justify-center" itemscope itemtype="https://schema.org/Person">
                 <div class="max-w-7xl text-center">
 
                     {% if section.settings.enable_author %}
             
-            <small>{{ article.author }}</small>
+            <small itemprop="author">{{ article.author }}</small>
         {% endif %}
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="max-w-7xl text-center">
           {% if section.settings.enable_published_date %}
     
-    <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+    <time itemprop="datePublished dateCreated" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
       {{ article.published_at | date: format: 'on_date' }}
     </time>
         {% endif %}
@@ -31,7 +31,7 @@
             </div>
             
         {% when 'featured_image' %}
-            <div class="max-w-7xl bg-blue-100 rounded-lg mx-2 md:mx-auto overflow-hidden my-4">
+            <div itemprop="image" class="max-w-7xl bg-blue-100 rounded-lg mx-2 md:mx-auto overflow-hidden my-4">
                
                      {% if article.image!=blank %}
   <img class="w-full h-80 md:h-96 object-cover object-center"
@@ -49,7 +49,7 @@
            
         {% when 'article_content' %}
             <div class="flex items-center justify-center">
-                <div class="max-w-4xl">
+                <div itemprop="articleBody" class="max-w-4xl">
                  
   {{ article.content }}
 
@@ -79,8 +79,11 @@
                         <span class="text-xs text-gray-400">{{comment.created_at | date: format:'default'}}</span>
                         <p class="text-sm">{{comment.content}}</p>
                     </div>
-                    
-                {% endfor %}
+                    {% endfor %}
+
+                    {% if paginate.pages > 1 %}
+                        {{ paginate |  default_pagination }}
+                    {% endif %}
             {% endpaginate %}
     
         </div>
@@ -93,6 +96,37 @@
     <div id="comment_form" class="mb-8">
         {% form 'new_comment', article %}
             <div class="flex-1 mx-auto items-center justify-center max-w-4xl px-4">
+                {% if form.errors %}
+                    
+                    <div class="border p-5">
+                        <div class="flex flex-row items-center w-full my-3">
+                            <div class="text-red-500">
+                                {% render 'icon-failed' %}
+                            </div>
+                            <div class="text-sm font-medium ml-3">
+                               Oh no!Your comment was not posted
+                            </div>
+                        </div>
+                        <ul class="px-4 mb-3 ml-7 list-decimal">
+                            {% for error in form.errors %}
+                                <li>
+                                    <span>{{form.errors.messages[error]}}</span>
+                                </li>
+                                
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% elseif form.posted_successfully? %}
+                        <div class="flex flex-row items-center w-full my-3 p-5">
+                            <div class="text-green-500">
+                                {% render 'icon-success' %}
+                            </div>
+                            <div class="text-sm font-medium ml-3">
+                                Comment is posted successfully
+                            </div>
+                        </div>
+                {% endif %}
+
                 <div class="px-1 md:flex mb-3">
                     <div class="px-3 md:w-1/2">
                     <label for="comment_author" class="text-gray-700 font-medium uppercase text-xs mb-2">Name</label>
