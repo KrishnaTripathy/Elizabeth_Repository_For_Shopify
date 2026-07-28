@@ -1,4 +1,4 @@
-<div class="max-w-md">
+{% comment %} <div class="max-w-md">
     <div class="text-5xl font-bold my-4">{{section.settings.title}}
      </div>
      <div class="my-4">
@@ -11,7 +11,7 @@
                 {% assign shop_url = section.settings.button_url %}
             
         {% endif %}
-        {% comment %} <a href="{{ shop_url }}" class="px-4 inline py-2 text-base font-medium shadow bg-green-600 hover:bg-green-800 text-white">{{section.settings.button_label}}</a> {% endcomment %}
+        <a href="{{ shop_url }}" class="px-4 inline py-2 text-base font-medium shadow bg-green-600 hover:bg-green-800 text-white">{{section.settings.button_label}}</a>
      </div>
 </div>
 
@@ -55,4 +55,4 @@
         }
         ]
 }
-{% endschema %}
+{% endschema %} {% endcomment %}
